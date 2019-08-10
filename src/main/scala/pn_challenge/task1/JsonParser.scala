@@ -1,21 +1,20 @@
 package pn_challenge.task1
 
 import java.io.File
-import java.util.UUID
 
 import org.json4s.native.Serialization
 import org.json4s.{Extraction, Formats, NoTypeHints, jackson}
-import pn_challenge.utils.{CountryCode, PathConfig}
+import pn_challenge.{Click, Impression}
+import pn_challenge.utils.PathConfig
 
 import scala.io.Source
 
-object JsonParser extends App{
+// Task 1
+// Read events stored in JSON files
 
-  // case class to represent click
-  case class Click(impressionId: UUID, revenue: Float)
-
-  // case class to represent impression
-  case class Impression(appId: Long, advertiserId: Long, countryCode: Option[CountryCode], id: UUID)
+// JsonParser.parsedClicks returns List[Click] - a list of clicks parsed and mapped to objects
+// JsonParser.parsedImpressions returns List[Impression] - a list of impressions parsed and mapped to objects
+object JsonParser extends App {
 
   // json4s serializer with serialization of UUID type as opposed to default format
   implicit lazy val formats: Formats = Serialization.formats(NoTypeHints) ++ org.json4s.ext.JavaTypesSerializers.all
@@ -47,8 +46,8 @@ object JsonParser extends App{
   private val impressionFiles: List[File] = getListOfFiles(PathConfig.pathToImpressions)
 
   // resulting clicks parsed to a list of Click case class
-  val clicks: List[Click] = readFiles[Click](clickFiles)
+  val parsedClicks: List[Click] = readFiles[Click](clickFiles)
   // resulting impressions parsed to a list of Impression case class
-  val impressions: List[Impression] = readFiles[Impression](impressionFiles)
+  val parsedImpressions: List[Impression] = readFiles[Impression](impressionFiles)
 
 }
