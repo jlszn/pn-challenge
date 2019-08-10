@@ -1,5 +1,6 @@
 package pn_challenge.utils
 
+// a type to represent the values of "country_code" of impression objects
 sealed trait CountryCode
 
 case object AD extends CountryCode

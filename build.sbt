@@ -1,4 +1,4 @@
-name := "pub-native-challenge"
+name := "pn-challenge"
 
 version := "0.1"
 

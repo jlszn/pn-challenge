@@ -1,25 +1,15 @@
-package pn_challenge
+package pn_challenge.task1
 
 import java.io.File
 import java.util.UUID
 
-import org.json4s._
 import org.json4s.native.Serialization
+import org.json4s.{Extraction, Formats, NoTypeHints, jackson}
 import pn_challenge.utils.{CountryCode, PathConfig}
 
 import scala.io.Source
 
-// Task 1
-
-// Reads events stored in JSON files
-
-// Parser.clicks
-// returns a list of Click case classes parsed from 4 files containing clicks in Json format
-
-// Parser.impressions
-// returns a list of Impression case classes parsed from 4 files containing impressions in Json format
-
-object Parser {
+object JsonParser extends App{
 
   // case class to represent click
   case class Click(impressionId: UUID, revenue: Float)
