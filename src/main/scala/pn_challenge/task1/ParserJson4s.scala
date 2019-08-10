@@ -3,7 +3,7 @@ package pn_challenge.task1
 import java.io.File
 
 import org.json4s.native.Serialization
-import org.json4s.{Extraction, Formats, NoTypeHints, jackson}
+import org.json4s.{Extraction, Formats, NoTypeHints, native}
 import pn_challenge.{Click, Impression}
 import pn_challenge.utils.PathConfig
 
@@ -14,7 +14,7 @@ import scala.io.Source
 
 // JsonParser.parsedClicks returns List[Click] - a list of clicks parsed and mapped to objects
 // JsonParser.parsedImpressions returns List[Impression] - a list of impressions parsed and mapped to objects
-object JsonParser extends App {
+object ParserJson4s extends App {
 
   // json4s serializer with serialization of UUID type as opposed to default format
   implicit lazy val formats: Formats = Serialization.formats(NoTypeHints) ++ org.json4s.ext.JavaTypesSerializers.all
@@ -24,7 +24,7 @@ object JsonParser extends App {
 
   // parses jsons and extracts them to a list of case classes
   private def readObjects[A](path: String)(implicit m: Manifest[A]): List[A] = Extraction.extract[List[A]] {
-    jackson.parseJson(getText(path)).camelizeKeys
+    native.parseJson(getText(path)).camelizeKeys
   }
 
   // goes through files and passes their paths to json reader method
@@ -41,13 +41,13 @@ object JsonParser extends App {
   }
 
   // list of click files in the corresponding directory
-  private val clickFiles: List[File] = getListOfFiles(PathConfig.pathToClicks)
+  private def clickFiles: List[File] = getListOfFiles(PathConfig.clicks)
   // list of impression files in the corresponding directory
-  private val impressionFiles: List[File] = getListOfFiles(PathConfig.pathToImpressions)
+  private def impressionFiles: List[File] = getListOfFiles(PathConfig.impressions)
 
   // resulting clicks parsed to a list of Click case class
-  val parsedClicks: List[Click] = readFiles[Click](clickFiles)
+  def parsedClicks: List[Click] = readFiles[Click](clickFiles)
   // resulting impressions parsed to a list of Impression case class
-  val parsedImpressions: List[Impression] = readFiles[Impression](impressionFiles)
+  def parsedImpressions: List[Impression] = readFiles[Impression](impressionFiles)
 
 }
