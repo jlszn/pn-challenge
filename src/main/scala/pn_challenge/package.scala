@@ -1,36 +1,43 @@
 import java.util.UUID
 
-import pn_challenge.utils.CountryCode
+import pn_challenge.utils.CountryCode.CountryCode
 
 package object pn_challenge {
 
-  // represents click
   case class Click(impressionId: UUID,
                    revenue: BigDecimal)
 
-  // represents impression
   case class Impression(appId: Long,
                         advertiserId: Long,
                         countryCode: Option[CountryCode] = None,
                         id: UUID)
 
-  // represents calculated metrics
   case class ClicksPerApp(appId: Long,
                           countryCode: CountryCode,
                           impressions: Long,
                           clicks: Long,
                           revenue: BigDecimal)
 
-  // represents impressions without advertiser_id to get rid of extra data
   case class FilteredImpression(appId: Long,
-                                countryCode: Option[CountryCode] = None,
+                                countryCode: CountryCode,
                                 id: UUID)
 
   case class ImpressionAndRevenue(appId: Long,
-                                  countryCode: Option[CountryCode] = None,
+                                  countryCode: CountryCode,
                                   revenue: BigDecimal)
 
-  type Key = (Long, Option[CountryCode])
+  case class CalculatedRevenue(appId: Long,
+                               countryCode: CountryCode,
+                               impressions: Int,
+                               clicks: Int,
+                               revenue: BigDecimal)
 
+  case class ClickCompatible(impressionId: String, revenue: BigDecimal)
+
+  case class ImpressionCompatible(appId: Long, advertiserId: Long, countryCode: String, id: String)
+
+  case class Recommendation(appId: Long, countryCode: String, recom: List[Long])
+
+  type Key = (Long, CountryCode)
 
 }

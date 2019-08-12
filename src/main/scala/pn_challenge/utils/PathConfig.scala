@@ -24,5 +24,8 @@ object PathConfig {
   // get path of the revenue directory from application.conf
   val revenue: String = output + config.getString("path.revenue")
 
+  // get path of the revenue directory from application.conf
+  val recommendation: String = output + config.getString("path.recommendation")
+
 
 }
