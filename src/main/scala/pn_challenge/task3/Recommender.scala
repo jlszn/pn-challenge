@@ -50,9 +50,14 @@ object Recommender {
       .agg(collect_list($"advertiserId") as "recommendedAdvertiserIds".take(5))
 
   // convert to case classes to write them easily
-  private def converted: List[Recommendation] = topAdvertisers.as[Recommendation].collect().toList
+  private def converted: List[Recommendation] = {
+    topAdvertisers.as[Recommendation].collect().toList
+  }
 
   // write recommendations to file
-  def write(path: String): PrintWriter = ReaderWriterUtil.writeFile(converted, path)
+  def write(path: String) = {
+    ReaderWriterUtil.writeFile(converted, path)
+    spark.close()
+  }
 
 }
