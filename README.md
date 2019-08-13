@@ -1,4 +1,4 @@
-### Data engineering coding challenge.
+Data engineering coding challenge.
 
 _Scala, sbt, json4s, Apache Spark DataSets._
 
